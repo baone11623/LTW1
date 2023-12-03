@@ -71,22 +71,3 @@ export const forgotUser = async (dataForm, dispatch, toast, navigate) => {
     toast.error(`${error?.response?.data?.message} || "An error occurred"`);
   }
 };
-
-//search
-export const searchUser = async (dispatch, key, setLoading) => {
-  try {
-    if (key !== "") {
-      setLoading(true);
-      const res = await axios.get(`${endpoint}/search?keyword=${key}`, {
-        headers: {
-          authorization: `Bearer ${localStorage.getItem(LOCAL_STORAGE_TOKEN)}`,
-        },
-      });
-      dispatch(setSearch(res.data));
-      setLoading(false);
-    }
-  } catch (error) {
-    console.log(error);
-    setLoading(false);
-  }
-};
