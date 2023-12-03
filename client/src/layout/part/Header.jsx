@@ -7,6 +7,7 @@ const Header = () => {
   const [openRight, setOpenRight] = useState(false);
   const openDrawerRight = () => setOpenRight(true);
   const closeDrawerRight = () => setOpenRight(false);
+
   return (
     <div className="py-8 flex justify-between items-center">
       <div>
