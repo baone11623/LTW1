@@ -10,6 +10,7 @@ import MaleIcon from "./MaleIcon";
 import FemaleIcon from "./FemaleIcon";
 import StarIcon from "./StarIcon";
 import HeartIcon from "./HeartIcon";
+import CloseIcon from "./CloseIcon";
 export {
   OpenEyeIcon,
   CloseEyeIcon,
@@ -23,4 +24,5 @@ export {
   FemaleIcon,
   StarIcon,
   HeartIcon,
+  CloseIcon,
 };
