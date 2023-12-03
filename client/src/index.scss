@@ -31,3 +31,44 @@ button {
   outline: none;
   border: 0;
 }
+
+.radio {
+  display: inline-block;
+  vertical-align: middle;
+  color: white;
+  position: relative;
+}
+
+.radio > div {
+  height: 16px;
+  width: 16px;
+  border-radius: 50%;
+  @apply border-[2px] border-white;
+}
+
+.radio input:checked + div {
+  @apply border-blueColors;
+}
+
+.radio input:checked + div::after {
+  content: "";
+  height: 8px;
+  width: 8px;
+  border-radius: 50%;
+  background-color: #377dff;
+  display: block;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.custom-checkbox input:checked + div .custom-checkbox-square {
+  background-color: rgb(59 130 246 / var(--tw-bg-opacity));
+  border: none;
+}
+
+.custom-checkbox-square {
+  width: 16px;
+  height: 16px;
+}
