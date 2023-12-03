@@ -9,9 +9,36 @@ import {
   registerFailed,
   registerStart,
   registerSuccess,
+  authFailed,
+  authSuccess,
 } from "./authSlice";
 import { endpoint } from "../../utils/endpoint";
 import { LOCAL_STORAGE_TOKEN } from "../../utils/LocalStoreName";
+import { jwtDecode } from "jwt-decode";
+
+export const getCurrentUser = async (nameLocal, dispatch, toast) => {
+  let dateCurrent = new Date();
+  try {
+    const decodeToken = jwtDecode(localStorage[nameLocal]);
+    if (decodeToken.exp < dateCurrent.getTime() / 1000) {
+      localStorage.removeItem(nameLocal);
+      dispatch(authFailed());
+    }
+    const res = await axios.get(`${endpoint}/current-user`, {
+      headers: {
+        authorization: `Bearer ${localStorage.getItem(LOCAL_STORAGE_TOKEN)}`,
+      },
+    });
+    dispatch(authSuccess(res.data));
+  } catch (error) {
+    localStorage.removeItem(nameLocal);
+    dispatch(authFailed());
+    toast.warning(
+      "You have been logged out or your session has expired. Please log in again!"
+    );
+    return;
+  }
+};
 
 export const loginUser = async (dataForm, dispatch, navigate, toast) => {
   dispatch(loginStart());
