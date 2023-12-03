@@ -11,7 +11,10 @@ import CheckMailPage from "./page/Auth/CheckMailPage";
 import ForgotPage from "./page/Auth/ForgotPage";
 import CheckMailForgotPage from "./page/Auth/CheckMailForgotPage";
 import HomePage from "./page/Home/HomePage";
-import MyInfo from "./page/MyInfo/MyInfo";
+import LayoutAdmin from "./layout/LayoutAdmin";
+import Product from "./page/admin/page/Product";
+import Profile from "./page/admin/page/profile";
+import BlogAdmin from "./page/admin/page/BlogAdmin";
 ReactModal.setAppElement("#root");
 
 function App() {
@@ -21,13 +24,19 @@ function App() {
         <Route path="/" element={<HomePage></HomePage>}></Route>
         <Route path="/blog" element={<BlogPage></BlogPage>}></Route>
         <Route path="/shop" element={<ShopPage></ShopPage>}></Route>
-        <Route path="/my-info" element={<MyInfo></MyInfo>}></Route>
       </Route>
       <Route element={<LoginSignUpLayOut />}>
         <Route path="/login" element={<LoginPage />}></Route>
         <Route path="/register" element={<RegisterPage />}></Route>
         <Route path="/forgot" element={<ForgotPage />}></Route>
       </Route>
+
+      <Route element={<LayoutAdmin></LayoutAdmin>}>
+        <Route path="/admin/dashboard" element={<Product></Product>}></Route>
+        <Route path="/admin/my-profile" element={<Profile></Profile>}></Route>
+        <Route path="/admin/blog" element={<BlogAdmin></BlogAdmin>}></Route>
+      </Route>
+
       <Route path="/users/:token" element={<CheckMailPage />}></Route>
       <Route
         path="/users/:token/:password"
