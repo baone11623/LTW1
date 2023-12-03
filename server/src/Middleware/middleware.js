@@ -14,10 +14,12 @@ const middleWareUser = {
       const decoded = jwt.verify(token, process.env.ACCESS_KEY);
       req.user = await User.findById(decoded.id).select("-password");
       console.log(req.user);
-      next();
-      // if (req.user.admin) {
-      //   console.log(req.user.admin);
-      // }
+      if (req.user.admin) {
+        console.log(req.user.admin);
+        next();
+      } else {
+        next();
+      }
     } catch (error) {
       return res
         .status(401)

@@ -11,14 +11,12 @@ const blogSchema = mongoose.Schema(
     school: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "school",
-      require: true,
     },
-    adProduct: [
-      {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "shop",
-      },
-    ],
+    adProduct: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "shop",
+    },
+
     comment: [
       {
         type: mongoose.Schema.Types.ObjectId,

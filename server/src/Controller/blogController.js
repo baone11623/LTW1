@@ -3,7 +3,7 @@ const blogModel = require("../Models/blogModel");
 const blogController = {
   createBlog: async (req, res) => {
     try {
-      const { title, content, schoole, adProduct, comment } = req.body;
+      const { title, content, school, adProduct, comment } = req.body;
       //   if (!title || !content || !schoole || !adProduct) {
       //     return res
       //       .status(401)
@@ -12,7 +12,7 @@ const blogController = {
       const result = await blogModel.create({
         title: title,
         content: content,
-        schoole: schoole,
+        school: school,
         adProduct: adProduct,
       });
       return res.status(200).json({ success: true, message: result });
@@ -45,8 +45,17 @@ const blogController = {
           limit: limit,
         };
       }
-      results.results = await blogModel.find({})
+      results.results = await blogModel
+        .find({})
         .populate("school", ["name", "address", "schoolSupplies", "image"])
+        .populate({
+          path: "shop",
+          populate: {
+            path: "product",
+            select: "utensilname image note",
+            populate: { path: "price", select: "price" },
+          },
+        })
         .populate({
           path: "comment",
           populate: { path: "author", select: "username avatar" },
@@ -60,6 +69,39 @@ const blogController = {
       return res
         .status(500)
         .json({ success: false, message: "Error get explore" });
+    }
+  },
+
+  updateBlog: async (req, res) => {
+    try {
+      const { blogId, title, content } = req.body;
+      console.log(blogId, title, content);
+      await blogModel.updateOne(
+        { _id: blogId },
+        { title: title, content: content }
+      );
+
+      return res
+        .status(200)
+        .json({ success: true, message: "Updated blog successfully" });
+    } catch (error) {
+      return res
+        .status(500)
+        .json({ success: false, message: "Error updating blog" });
+    }
+  },
+
+  deleteBlog: async (req, res) => {
+    try {
+      const { blogId } = req.body;
+      await blogModel.deleteOne({ _id: blogId });
+      return res
+        .status(200)
+        .json({ success: true, message: "Delete blog successfully" });
+    } catch (error) {
+      return res
+        .status(500)
+        .json({ success: true, message: "Error deleting blog" });
     }
   },
 };
