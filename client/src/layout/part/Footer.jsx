@@ -1,5 +1,5 @@
 const Footer = () => {
-  return <div>
+  return (<div>
     <div>
       <h2>About</h2>
       <p></p>
@@ -33,10 +33,10 @@ const Footer = () => {
     <form>
       <h2>Title</h2>
       <p>Desc</p>
-      <input>Your Email</input>
+      <input type="text" placeholder="Your Email"></input>
       <button>Subscribe</button>
     </form>
-  </div>;
+  </div>);
 };
 
 export default Footer;
