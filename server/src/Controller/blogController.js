@@ -50,18 +50,6 @@ const blogController = {
       results.results = await blogModel
         .find({})
         .populate("school", ["name", "address", "schoolSupplies", "image"])
-        .populate({
-          path: "shop",
-          populate: {
-            path: "product",
-            select: "utensilname image note",
-            populate: { path: "price", select: "price" },
-          },
-        })
-        .populate({
-          path: "comment",
-          populate: { path: "author", select: "username avatar" },
-        })
         .sort({ $natural: -1 })
         .limit(limit)
         .skip(starExplore)
@@ -115,20 +103,8 @@ const blogController = {
       }
       const result = await blogModel
         .findById({ _id: detailID })
-        .populate("school", ["name", "address", "schoolSupplies", "image"])
-        .populate({
-          path: "shop",
-          populate: {
-            path: "product",
-            select: "utensilname image note",
-            populate: { path: "price", select: "price" },
-          },
-        })
-        .populate({
-          path: "comment",
-          populate: { path: "author", select: "username avatar" },
-        });
-      return res.status(200).json({ success: true, message: "" });
+        .populate("school", ["name", "address", "schoolSupplies", "image"]);
+      return res.status(200).json({ success: true, message: result });
     } catch (error) {
       return res
         .status(500)

@@ -7,11 +7,15 @@ const MyInfo = () => {
   const avatar = useSelector(
     (state) => state?.auth?.auth?.user?.message?.avatar
   );
+  const dateofbirth = useSelector(
+    (state) => state?.auth?.auth?.user?.message?.dateofbirth
+  );
   const id = useSelector((state) => state?.auth?.auth?.user?.message?._id);
   const profileInfo = {
     name: name,
     avatar: avatar,
     id: id,
+    dateofbirth: dateofbirth,
   };
   return profileInfo;
 };

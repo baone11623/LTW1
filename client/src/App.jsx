@@ -4,17 +4,20 @@ import LoginPage from "./page/Auth/LoginPage";
 import LayoutCommon from "./layout/LayoutCommon";
 import ShopPage from "./page/Shop/ShopPage";
 import BlogPage from "./page/Blog/BlogPage";
+import HomePage from "./page/Home/HomePage";
 
 import RegisterPage from "./page/Auth/RegisterPage";
 import LoginSignUpLayOut from "./layout/LoginSignUpLayOut";
 import CheckMailPage from "./page/Auth/CheckMailPage";
 import ForgotPage from "./page/Auth/ForgotPage";
 import CheckMailForgotPage from "./page/Auth/CheckMailForgotPage";
-import HomePage from "./page/Home/HomePage";
 import LayoutAdmin from "./layout/LayoutAdmin";
 import Product from "./page/admin/page/Product";
 import Profile from "./page/admin/page/profile";
 import BlogAdmin from "./page/admin/page/BlogAdmin";
+import BlogDetail from "./page/Blog/BlogDetail";
+import NotFoundPage from "./page/NotFoundPage";
+import Info from "./page/MyInfo/Info";
 ReactModal.setAppElement("#root");
 
 function App() {
@@ -24,6 +27,8 @@ function App() {
         <Route path="/" element={<HomePage></HomePage>}></Route>
         <Route path="/blog" element={<BlogPage></BlogPage>}></Route>
         <Route path="/shop" element={<ShopPage></ShopPage>}></Route>
+        <Route path="/my-info" element={<Info></Info>}></Route>
+        <Route path="/blog/:id" element={<BlogDetail></BlogDetail>}></Route>
       </Route>
       <Route element={<LoginSignUpLayOut />}>
         <Route path="/login" element={<LoginPage />}></Route>
@@ -42,6 +47,8 @@ function App() {
         path="/users/:token/:password"
         element={<CheckMailForgotPage />}
       ></Route>
+
+      <Route path="/*" element={<NotFoundPage></NotFoundPage>}></Route>
     </Routes>
   );
 }

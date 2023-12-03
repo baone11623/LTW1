@@ -10,6 +10,7 @@ router.post(
   blogController.createBlog
 );
 router.get("/get-blog", blogController.getBlog);
+router.get("/details-blog", blogController.details);
 router.put(
   "/update-blog",
   middleWareUser.verifyToken,

@@ -1,5 +1,7 @@
 import PropTypes from "prop-types";
 import styled from "styled-components";
+import { convertDatetime } from "../../../utils/convertDatetime";
+import { Link } from "react-router-dom";
 
 const TitleStyled = styled.h2`
   overflow: hidden;
@@ -14,9 +16,13 @@ const BlogListItem = ({
   name = "alec",
   datetime = "18/11/2023",
   img = "https://source.unsplash.com/random",
+  link,
 }) => {
   return (
-    <div className="rounded-xl p-4 flex flex-col gap-4 border border-[#E8E8EA]">
+    <Link
+      to={link}
+      className="rounded-xl p-4 flex flex-col gap-4 border border-[#E8E8EA]"
+    >
       <div>
         <img
           src={img}
@@ -37,10 +43,12 @@ const BlogListItem = ({
             />
             <h4 className="text-base font-medium text-[#97989F]">{name}</h4>
           </span>
-          <h4 className="text-[#97989F] text-base font-normal">{datetime}</h4>
+          <h4 className="text-[#97989F] text-base font-normal">
+            {convertDatetime(datetime)}
+          </h4>
         </span>
       </div>
-    </div>
+    </Link>
   );
 };
 
@@ -50,6 +58,7 @@ BlogListItem.propTypes = {
   name: PropTypes.string,
   datetime: PropTypes.string,
   img: PropTypes.string,
+  link: PropTypes.string,
 };
 
 export default BlogListItem;

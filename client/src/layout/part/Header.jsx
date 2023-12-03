@@ -6,6 +6,7 @@ import { getCurrentUser } from "../../redux/auth/apiRequest";
 import { LOCAL_STORAGE_TOKEN } from "../../utils/LocalStoreName";
 import { useDispatch } from "react-redux";
 import { toast } from "react-toastify";
+import MyInfo from "../../utils/MyInfo";
 
 const Header = () => {
   const [openRight, setOpenRight] = useState(false);
@@ -29,6 +30,8 @@ const Header = () => {
     getCurrentUser(LOCAL_STORAGE_TOKEN, dispatch, toast);
   }, []);
 
+  const { avatar } = MyInfo();
+
   return (
     <div className="py-8 flex justify-between items-center">
       <div>
@@ -46,7 +49,7 @@ const Header = () => {
       <span className="hidden md:block">
         <Link to={"my-info"}>
           <img
-            src={"https://source.unsplash.com/random"}
+            src={avatar}
             alt=""
             className="w-9 h-9 object-cover rounded-full"
           />
