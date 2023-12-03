@@ -15,6 +15,10 @@ router.put(
   middleWareUser.verifyToken,
   blogController.updateBlog
 );
-router.put("/delete-blog", middleWareUser, blogController.deleteBlog);
+router.delete(
+  "/delete-blog",
+  middleWareUser.verifyToken,
+  blogController.deleteBlog
+);
 
 module.exports = router;

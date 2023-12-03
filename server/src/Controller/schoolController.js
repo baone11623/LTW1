@@ -1,4 +1,4 @@
-const School = require("../Models/schoolModel");
+// const School = require("../Models/schoolModel");
 const schoolModels = require("../Models/schoolModel");
 const { uploadImage } = require("../imageprocessing/uploadImages");
 
@@ -14,11 +14,11 @@ const schoolController = {
         });
       }
 
-    //   const photoPath = await uploadImage(image);
+      const photoPath = await uploadImage(image);
       const result = await schoolModels.create({
         name: name,
         address: address,
-        // image: photoPath,
+        image: photoPath,
       });
       for (let item = 0; item < schoolSupplies.length; item++) {
         result.schoolSupplies.push(schoolSupplies[item]);

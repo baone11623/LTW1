@@ -1,3 +1,5 @@
+const mongoose = require("mongoose");
+const ObjectId = mongoose.Types.ObjectId;
 const blogModel = require("../Models/blogModel");
 
 const blogController = {
@@ -102,6 +104,35 @@ const blogController = {
       return res
         .status(500)
         .json({ success: true, message: "Error deleting blog" });
+    }
+  },
+  details: async (req, res) => {
+    try {
+      const detailID = req.query.detailID;
+      const isValidObjectId = ObjectId.isValid(detailID);
+      if (!isValidObjectId) {
+        return res.status(400).json({ success: false, message: "Invalid ID" });
+      }
+      const result = await blogModel
+        .findById({ _id: detailID })
+        .populate("school", ["name", "address", "schoolSupplies", "image"])
+        .populate({
+          path: "shop",
+          populate: {
+            path: "product",
+            select: "utensilname image note",
+            populate: { path: "price", select: "price" },
+          },
+        })
+        .populate({
+          path: "comment",
+          populate: { path: "author", select: "username avatar" },
+        });
+      return res.status(200).json({ success: true, message: "" });
+    } catch (error) {
+      return res
+        .status(500)
+        .json({ success: false, message: "Error getting details" });
     }
   },
 };
