@@ -45,7 +45,7 @@ const blogController = {
           limit: limit,
         };
       }
-      results.results = await Explore.find({})
+      results.results = await blogModel.find({})
         .populate("school", ["name", "address", "schoolSupplies", "image"])
         .populate({
           path: "comment",
