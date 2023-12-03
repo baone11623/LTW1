@@ -12,6 +12,7 @@ const priceRoute = require("./src/routes/priceRoute");
 const shopRoute = require("./src/routes/shopRoute");
 const schoolRoute = require("./src/routes/schoolRoute");
 const blogRoute = require("./src/routes/blogRoute");
+const productRoute = require("./src/routes/productRoute");
 
 // app.use(fileUpload({ useTempFiles: true }));
 app.use(express.urlencoded({ extended: true }));
@@ -24,6 +25,7 @@ app.use("/api", priceRoute);
 app.use("/api", shopRoute);
 app.use("/api", schoolRoute);
 app.use("/api", blogRoute);
+app.use("/api", productRoute);
 
 connnection();
 

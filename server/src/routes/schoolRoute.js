@@ -6,7 +6,6 @@ const middleWareUser = require("../Middleware/middleware");
 
 router.post(
   "/create-school",
-  middleWareUser.verifyToken,
   schoolController.createSchool
 );
 router.put(
