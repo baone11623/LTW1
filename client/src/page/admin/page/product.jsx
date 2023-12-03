@@ -1,5 +1,27 @@
+import { useState } from "react";
 import Button from "../../../components/button/Button";
+import Modal from "react-modal";
+import EditInfo from "../../../modals/EditInfo";
+const editStyle = {
+  overlay: {
+    zIndex: "10000",
+    backgroundColor: "rgba(33, 40, 48, 0.8)",
+  },
 
+  content: {
+    width: "712px",
+    backgroundColor: "#191c21",
+    color: "#fff",
+    border: "none",
+    borderRadius: "16px",
+    top: "55%",
+    left: "50%",
+    right: "auto",
+    bottom: "auto",
+    marginRight: "-50%",
+    transform: "translate(-50%, -50%)",
+  },
+};
 const Product = () => {
   return (
     <div className="relative">
@@ -12,6 +34,7 @@ const Product = () => {
 };
 
 const ProductItem = () => {
+  const [show, setShow] = useState(false);
   return (
     <div className="flex gap-[10px] text-white">
       <div>
@@ -25,10 +48,22 @@ const ProductItem = () => {
         <h2>Product Name</h2>
         <h3>Price</h3>
         <div className="flex gap-3">
-          <Button className="px-2 py !text-sm !h-[40px]">Edit</Button>
+          <Button
+            className="px-2 py !text-sm !h-[40px]"
+            onClick={() => setShow(true)}
+          >
+            Edit
+          </Button>
           <Button className="px-2 py !text-sm !h-[40px]">Delete</Button>
         </div>
       </div>
+      <Modal
+        style={editStyle}
+        isOpen={show}
+        onRequestClose={() => setShow(false)}
+      >
+        <EditInfo setShow={setShow}></EditInfo>
+      </Modal>
     </div>
   );
 };
