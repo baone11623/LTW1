@@ -18,11 +18,13 @@ import BlogAdmin from "./page/admin/page/BlogAdmin";
 import BlogDetail from "./page/Blog/BlogDetail";
 import NotFoundPage from "./page/NotFoundPage";
 import Info from "./page/MyInfo/Info";
+
 ReactModal.setAppElement("#root");
 
 function App() {
   return (
     <Routes>
+      <Route path="/login" element={<LoginPage></LoginPage>}></Route>
       <Route element={<LayoutCommon></LayoutCommon>}>
         <Route path="/" element={<HomePage></HomePage>}></Route>
         <Route path="/blog" element={<BlogPage></BlogPage>}></Route>

@@ -83,7 +83,7 @@ const blogController = {
 
   deleteBlog: async (req, res) => {
     try {
-      const { blogId } = req.body;
+      const { blogId } = req.query;
       await blogModel.deleteOne({ _id: blogId });
       return res
         .status(200)
