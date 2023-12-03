@@ -1,8 +1,8 @@
-const User = require("../Models/userModel");
+const User = require("../Models/userModels");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const crypto = require("crypto");
-const dotenv = require("dotenv");
+require("dotenv").config();
 const SendEmail = require("../Config/emailConfig");
 
 const userController = {
@@ -41,6 +41,84 @@ const userController = {
       return res.status(200).json(data);
     } catch (error) {
       console.log("error: ", error);
+      return res
+        .status(500)
+        .json({ success: false, message: "Server internal error" });
+    }
+  },
+
+  verifyUser: async (req, res) => {
+    const token = req.query.token;
+    // console.log(token);
+    try {
+      const user = await User.findOne({ emailToken: token });
+      if (user) {
+        user.emailToken = null;
+        user.verified = true;
+        await user.save();
+        return res.status(200).json({
+          message: "Email verified successfully",
+          success: true,
+        });
+      } else {
+        return res.status(404).json({
+          message: "Email not verified",
+          success: false,
+        });
+      }
+    } catch (error) {
+      return res.status(500).json({
+        message: "Internal Server Error",
+        success: false,
+      });
+    }
+  },
+  loginUser: async (req, res) => {
+    const { email, password } = req.body;
+    console.log(email, password);
+    try {
+      let user = await User.findOne({ email });
+      if (!user) {
+        return res
+          .status(404)
+          .json({ success: false, message: "Email not found" });
+      }
+      const validerPassword = await bcrypt.compare(password, user.password);
+
+      if (!user.verified) {
+        return res
+          .status(404)
+          .json({ success: false, message: "Please verified email" });
+      }
+
+      if (!validerPassword) {
+        return res
+          .status(404)
+          .json({ success: false, message: "Incorrect password" });
+      }
+
+      let accessToken = jwt.sign(
+        {
+          id: user._id,
+          // admin: user.admin
+        },
+        process.env.ACCESS_KEY,
+        {
+          expiresIn: "12h",
+        }
+      );
+
+      return res.status(200).json({
+        success: true,
+        username: user.username,
+        userId: user._id,
+        image: user.image,
+        accessToken,
+        email,
+        message: "Logged in successfully",
+      });
+    } catch (error) {
+      console.log("error :", error);
       return res
         .status(500)
         .json({ success: false, message: "Server internal error" });
