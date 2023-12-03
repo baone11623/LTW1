@@ -100,7 +100,7 @@ const userController = {
       let accessToken = jwt.sign(
         {
           id: user._id,
-          // admin: user.admin
+          admin: user.admin,
         },
         process.env.ACCESS_KEY,
         {
