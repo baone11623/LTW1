@@ -10,6 +10,8 @@ const hostname = process.env.HOSTNAME || 8000;
 const userRoute = require("./src/routes/userRoute");
 const priceRoute = require("./src/routes/priceRoute");
 const shopRoute = require("./src/routes/shopRoute");
+const schoolRoute = require("./src/routes/schoolRoute");
+const blogRoute = require("./src/routes/blogRoute");
 
 // app.use(fileUpload({ useTempFiles: true }));
 app.use(express.urlencoded({ extended: true }));
@@ -20,6 +22,8 @@ app.use(express.json({ limit: "25mb" }));
 app.use("/api", userRoute);
 app.use("/api", priceRoute);
 app.use("/api", shopRoute);
+app.use("/api", schoolRoute);
+app.use("/api", blogRoute);
 
 connnection();
 
