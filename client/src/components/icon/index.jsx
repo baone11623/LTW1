@@ -8,6 +8,8 @@ import NameIcon from "./NameIcon";
 import DateIcon from "./DateIcon";
 import MaleIcon from "./MaleIcon";
 import FemaleIcon from "./FemaleIcon";
+import StarIcon from "./StarIcon";
+import HeartIcon from "./HeartIcon";
 export {
   OpenEyeIcon,
   CloseEyeIcon,
@@ -19,4 +21,6 @@ export {
   DateIcon,
   MaleIcon,
   FemaleIcon,
+  StarIcon,
+  HeartIcon,
 };
